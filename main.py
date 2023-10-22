@@ -3,7 +3,6 @@ from tkinter import ttk
 import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
-from phaseportrait import PhasePortrait2D
 
 # Функция, которая описывает дифференциальное уравнение маятника
 def pendulum(t, y, g, L):
@@ -13,9 +12,10 @@ def pendulum(t, y, g, L):
 
 # Функция для решения дифференциального уравнения и построения графиков
 def simulate_pendulum():
-    g = float(g_entry.get())
-    L = float(L_entry.get())
-    theta0 = np.pi / 4
+    theta0 = float(theta0_entry.get())
+    omega0 = float(omega0_entry.get())
+    g = 9.81  # Ускорение свободного падения (постоянное)
+    L = 1.0   # Длина нити (постоянная)
 
     # Отображение дифференциального уравнения
     diff_eq_label.config(text=f"Дифференциальное уравнение: d^2θ/dt^2 = -(g / L) * sin(θ)")
@@ -24,7 +24,6 @@ def simulate_pendulum():
     t_span = (0, 10)
 
     # Начальные условия
-    omega0 = 0
     y0 = [theta0, omega0]
 
     # Решение дифференциального уравнения
@@ -56,20 +55,19 @@ app.title("Математический маятник")
 frame = ttk.Frame(app)
 frame.grid(row=0, column=0)
 
-g_label = ttk.Label(frame, text="Ускорение свободного падения (g):")
-g_label.grid(row=0, column=0)
+theta0_label = ttk.Label(frame, text="Начальный угол (радианы):")
+theta0_label.grid(row=0, column=0)
 
-g_entry = ttk.Entry(frame)
-g_entry.grid(row=0, column=1)
-g_entry.insert(0, "9.81")  # Значение по умолчанию
+theta0_entry = ttk.Entry(frame)
+theta0_entry.grid(row=0, column=1)
+theta0_entry.insert(0, "0.785")  # Значение по умолчанию (45 градусов)
 
-L_label = ttk.Label(frame, text="Длина нити (L):")
-L_label.grid(row=1, column=0)
+omega0_label = ttk.Label(frame, text="Начальная угловая скорость (рад/с):")
+omega0_label.grid(row=1, column=0)
 
-L_entry = ttk.Entry(frame)
-L_entry.grid(row=1, column=1)
-L_entry.insert(0, "1.0")  # Значение по умолчанию
-
+omega0_entry = ttk.Entry(frame)
+omega0_entry.grid(row=1, column=1)
+omega0_entry.insert(0, "0.0")  # Значение по умолчанию
 
 diff_eq_label = ttk.Label(frame, text="Дифференциальное уравнение: d^2θ/dt^2 = -(g / L) * sin(θ)")
 diff_eq_label.grid(row=3, column=0, columnspan=2)
