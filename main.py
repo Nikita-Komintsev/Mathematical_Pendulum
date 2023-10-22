@@ -15,7 +15,7 @@ def pendulum(t, y, g, L):
 def simulate_pendulum():
     g = float(g_entry.get())
     L = float(L_entry.get())
-    theta0 = float(theta0_entry.get())
+    theta0 = np.pi / 4
 
     # Отображение дифференциального уравнения
     diff_eq_label.config(text=f"Дифференциальное уравнение: d^2θ/dt^2 = -(g / L) * sin(θ)")
@@ -70,12 +70,6 @@ L_entry = ttk.Entry(frame)
 L_entry.grid(row=1, column=1)
 L_entry.insert(0, "1.0")  # Значение по умолчанию
 
-theta0_label = ttk.Label(frame, text="Начальный угол (theta0):")
-theta0_label.grid(row=2, column=0)
-
-theta0_entry = ttk.Entry(frame)
-theta0_entry.grid(row=2, column=1)
-theta0_entry.insert(0, "0.785")  # Значение по умолчанию (по умолчанию pi/4 радиан)
 
 diff_eq_label = ttk.Label(frame, text="Дифференциальное уравнение: d^2θ/dt^2 = -(g / L) * sin(θ)")
 diff_eq_label.grid(row=3, column=0, columnspan=2)
